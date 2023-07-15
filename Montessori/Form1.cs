@@ -147,7 +147,7 @@ namespace Montessori
             List<string> umiejetnosci = new List<string>();
             List<string> opis = new List<string>();
 
-
+            //petla tworzaca tablice z wartosciami wszystkich umiejetnosci
             for (int i = 0; i < 83; i++)
             {
                 umiejetnosci.Add(ws.Cells[i+2, 5].Value2);
@@ -159,50 +159,64 @@ namespace Montessori
             object missing = Missing.Value;
             Word.Document myWordDoc = null;
 
-            if (File.Exists((string)templatePath))
-            {
-                object readOnly = false;
-                object isVisible = false;
-                wordApp.Visible = false;
 
-                myWordDoc = wordApp.Documents.Open(ref templatePath, ref missing, ref readOnly,
+            object readOnly = false;
+            object isVisible = false;
+            wordApp.Visible = false;
+
+
+            if (File.Exists((string)SaveAs)){
+
+
+                myWordDoc = wordApp.Documents.Open(ref SaveAs, ref missing, ref readOnly,
                     ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing,
                     ref missing, ref missing, ref missing, ref missing, ref missing);
 
-                myWordDoc.Activate();
 
-                // find and replace 
-
-                this.FindAndReplace(wordApp, "<name>", name);
-                
-                //informatyczna 
-                Word.Table table = myWordDoc.Tables[6]; 
-                MarkAGrade(umiejetnosci, table, semestr, 4, 0);
-                //matematyczna
-                table = myWordDoc.Tables[1]; 
-                MarkAGrade(umiejetnosci, table, semestr, 26, 4);
-                //plastyczna
-                table = myWordDoc.Tables[5];
-                MarkAGrade(umiejetnosci, table, semestr, 6, 30);
-                //polonistyczna
-                table = myWordDoc.Tables[2];
-                MarkAGrade(umiejetnosci, table, semestr, 17, 36);
-                //przyrodnicza
-                table = myWordDoc.Tables[3];
-                MarkAGrade(umiejetnosci, table, semestr, 11, 53);
-                //angielski
-                table = myWordDoc.Tables[4];
-                MarkAGrade(umiejetnosci, table, semestr, 11, 64);
-                //wf
-                table = myWordDoc.Tables[7];
-                MarkAGrade(umiejetnosci, table, semestr, 3, 75);
-                
-                
             }
-            else
+            else 
             {
-                MessageBox.Show("Nie znaleziono plików");
+                myWordDoc = wordApp.Documents.Open(ref templatePath, ref missing, ref readOnly,
+                    ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref missing, ref missing);
             }
+
+
+
+                
+
+                
+
+            myWordDoc.Activate();
+
+            // find and replace 
+
+            this.FindAndReplace(wordApp, "<name>", name);
+                
+            //informatyczna 
+            Word.Table table = myWordDoc.Tables[6]; 
+            MarkAGrade(umiejetnosci, table, semestr, 4, 0);
+            //matematyczna
+            table = myWordDoc.Tables[1]; 
+            MarkAGrade(umiejetnosci, table, semestr, 26, 4);
+            //plastyczna
+            table = myWordDoc.Tables[5];
+            MarkAGrade(umiejetnosci, table, semestr, 6, 30);
+            //polonistyczna
+            table = myWordDoc.Tables[2];
+            MarkAGrade(umiejetnosci, table, semestr, 17, 36);
+            //przyrodnicza
+            table = myWordDoc.Tables[3];
+            MarkAGrade(umiejetnosci, table, semestr, 11, 53);
+            //angielski
+            table = myWordDoc.Tables[4];
+            MarkAGrade(umiejetnosci, table, semestr, 11, 64);
+            //wf
+            table = myWordDoc.Tables[7];
+            MarkAGrade(umiejetnosci, table, semestr, 3, 75);
+                
+
+
 
             myWordDoc.SaveAs2(ref SaveAs, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing
                 , ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing,
@@ -300,7 +314,7 @@ namespace Montessori
                     foreach (int index in indexes)
                     {
                        
-                        CreateWordDocument(files1[index], path + @"\" + filesNames1[index]  + @".docx", 1, GetName(filesNames1)[index]);
+                        CreateWordDocument(files1[index], path + @"\" + GetName(filesNames1)[index] + @".docx", 1, GetName(filesNames1)[index]);
                     }
                     indexes.Clear();
 
@@ -311,7 +325,7 @@ namespace Montessori
                     }
                     foreach (int index in indexes)
                     {
-                        CreateWordDocument(files2[index], path + @"\" + filesNames2[index] + @".docx", 2, GetName(filesNames2)[index]);
+                        CreateWordDocument(files2[index], path + @"\" + GetName(filesNames2)[index] + @".docx", 2, GetName(filesNames2)[index]);
                     }
                     indexes.Clear();
 
@@ -322,7 +336,7 @@ namespace Montessori
                     }
                     foreach (int index in indexes)
                     {
-                        CreateWordDocument(files3[index], path + @"\" + filesNames3[index] + @".docx", 3, GetName(filesNames3)[index]);
+                        CreateWordDocument(files3[index], path + @"\" + GetName(filesNames3)[index] + @".docx", 3, GetName(filesNames3)[index]);
                     }
                     indexes.Clear();
 
@@ -333,7 +347,7 @@ namespace Montessori
                     }
                     foreach (int index in indexes)
                     {
-                        CreateWordDocument(files4[index], path + @"\" + filesNames4[index] + @".docx", 4, GetName(filesNames4)[index]);
+                        CreateWordDocument(files4[index], path + @"\" + GetName(filesNames4)[index] + @".docx", 4, GetName(filesNames4)[index]);
                     }
                     indexes.Clear();
 
@@ -345,7 +359,7 @@ namespace Montessori
                     }
                     foreach (int index in indexes)
                     {
-                        CreateWordDocument(files5[index], path + @"\" + filesNames5[index] + @".docx", 5, GetName(filesNames5)[index]);
+                        CreateWordDocument(files5[index], path + @"\" + GetName(filesNames5)[index] + @".docx", 5, GetName(filesNames5)[index]);
                     }
                     indexes.Clear();
 
@@ -356,7 +370,7 @@ namespace Montessori
                     }
                     foreach (int index in indexes)
                     {
-                        CreateWordDocument(files6[index], path + @"\" + filesNames6[index] + @".docx", 6, GetName(filesNames6)[index]);
+                        CreateWordDocument(files6[index], path + @"\" + GetName(filesNames6)[index] + @".docx", 6, GetName(filesNames6)[index]);
                     }
                     indexes.Clear();
                 }
